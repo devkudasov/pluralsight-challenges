@@ -1,1 +1,3 @@
 # pluralsight-challenges
+
+## COMPLETED PATHs
