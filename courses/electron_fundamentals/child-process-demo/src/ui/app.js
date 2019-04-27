@@ -14,6 +14,7 @@ function checkGitStatus(dir) {
     exec('git status', {
         cwd: dir
     }, (err, stdout, stderr) => {
+        debugger;
         if (err) setStatus('unknown');
 
         if (/nothing to commit/.test(stdout)) setStatus('clean');
@@ -39,6 +40,8 @@ function setStatus(status) {
 
 let timer = null;
 document.getElementById('input').addEventListener('keyup', event => {
+    removeStatus();
+    
     clearTimeout(timer);
 
     setTimeout(_ => {
