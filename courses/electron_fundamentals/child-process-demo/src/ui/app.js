@@ -14,12 +14,11 @@ function checkGitStatus(dir) {
     exec('git status', {
         cwd: dir
     }, (err, stdout, stderr) => {
-        debugger;
-        if (err) setStatus('unknown');
+        if (err) return setStatus('unknown');
 
-        if (/nothing to commit/.test(stdout)) setStatus('clean');
+        if (/nothing to commit/.test(stdout)) return setStatus('clean');
         
-        setStatus('dirty');
+        return setStatus('dirty');
     });
 }
 
@@ -41,7 +40,7 @@ function setStatus(status) {
 let timer = null;
 document.getElementById('input').addEventListener('keyup', event => {
     removeStatus();
-    
+
     clearTimeout(timer);
 
     setTimeout(_ => {
