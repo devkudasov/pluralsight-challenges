@@ -8,11 +8,14 @@ app.on('ready', _ => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 725,
-    resizable: false
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
 
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'ui', 'main-window', 'main-window.template.html'),
+    pathname: path.join(__dirname, 'ui', 'main-window', 'main-window.html'),
     protocol: 'file',
     slashes: true
   }));
