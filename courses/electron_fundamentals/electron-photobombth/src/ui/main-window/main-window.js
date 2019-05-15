@@ -1,4 +1,5 @@
 const video = require('./etc/video');
+const countdown = require('./etc/countdown');
 
 function formatImgTag(bytes) {
   const div = document.createElement('div');
@@ -23,7 +24,9 @@ document.addEventListener('DOMContentLoaded', _ => {
   video.init(navigator, videoEl);
 
   recordEl.addEventListener('click', _ => {
-    const bytes = video.captureBytes(videoEl, canvasEl);
-    photosEl.appendChild(formatImgTag(bytes));
+    countdown.start(counterEl, 3, _ => {
+      const bytes = video.captureBytes(videoEl, canvasEl);
+      photosEl.appendChild(formatImgTag(bytes));
+    });
   });
 });
