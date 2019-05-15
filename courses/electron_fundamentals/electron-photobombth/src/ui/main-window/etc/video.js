@@ -17,3 +17,10 @@ const __getUserMediaError = error => {
 exports.init = (nav, videoEl) => {
   nav.getUserMedia(__constraints, stream => __getUserMediaSuccess(videoEl, stream), __getUserMediaError);
 };
+
+exports.captureBytes = (videoEl, canvasEl) => {
+  const ctx = canvasEl.getContext('2d');
+
+  ctx.drawImage(videoEl, 0, 0);
+  return canvasEl.toDataURL('image/png');
+};
