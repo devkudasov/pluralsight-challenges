@@ -1,6 +1,8 @@
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow, ipcMain: ipc } = require('electron');
 const url = require('url');
 const path = require('path');
+
+const images = require('./etc/images');
 
 let mainWindow = null;
 
@@ -20,9 +22,15 @@ app.on('ready', _ => {
     slashes: true
   }));
 
+  images.mkdir(images.getPictureDir(app));
+
   mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', _ => {
     mainWindow = null;
   });
+});
+
+ipc.on('image-captured', (event, bytes) => {
+  images.save(images.getPictureDir(app), bytes);
 });
