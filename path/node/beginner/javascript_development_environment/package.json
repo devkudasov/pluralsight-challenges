@@ -6,11 +6,14 @@
     "prestart": "babel-node buildScripts/startMessage.js",
     "open:src": "babel-node buildScripts/srcServer.js",
     "localtunnel": "lt --port 3000",
-    "start": "npm-run-all --parallel open:src localtunnel",
+    "start": "npm-run-all --parallel open:src lint:watch test:watch start:mock localtunnel",
     "lint": "esw webpack.config.* src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\"",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "generate:mock": "babel-node buildScripts/generateMockData.js",
+    "prestart:mock": "npm run generate:mock",
+    "start:mock": "json-server --watch src/api/db.json --port 3001"
   },
   "author": "Dmitriy Kudasov",
   "license": "MIT",
